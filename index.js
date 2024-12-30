@@ -2,25 +2,34 @@ let mainDiv = document.querySelector("#main");
 let row = document.getElementsByClassName("gridRow");
 let col = document.getElementsByClassName("gridCol");
 
-function makeGrid() {
-    makeRow(16);
-    makeCol(16);
-}
+let size = 0;
 
-function makeRow(rowNumber) {
-    for (r = 0;r < rowNumber;r++) {
-        let newRow = document.createElement("div");
-        mainDiv.appendChild(newRow).className = "gridRow";
-    }
-}
+const gridSize = document.querySelector(".size");
+gridSize.addEventListener("input", (e) => {
+    size = parseInt(e.target.value);
+    makeGrid();
+})
+console.log(size);
 
-function makeCol(colNumber) {
-    for (i = 0;i < row.length;i++) {
-        for (j = 0;j < colNumber;j++) {
-            let newCol = document.createElement("div");
-            row[j].appendChild(newCol).className = "gridCol";
+// Makes rows
+function makeRow(size) {
+    mainDiv.innerHTML = "";
+
+    for (let i = 0; i < size; i++) {
+        let row = document.createElement("div");
+        row.className = "gridRow";
+
+        for (let j = 0; j < size; j++) {
+            let col = document.createElement("div");
+            col.className = "gridCol";
+            row.appendChild(col);
         }
+
+        mainDiv.appendChild(row);
     }
 }
 
-makeGrid();
+// Makes the grid
+function makeGrid() {
+    makeRow(size);
+}
